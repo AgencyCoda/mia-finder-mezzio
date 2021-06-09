@@ -85,6 +85,11 @@ use Mia\Auth\Model\MIAUser;
  *  description=""
  * )
  * @OA\Property(
+ *  property="type_extra",
+ *  type="integer",
+ *  description=""
+ * )
+ * @OA\Property(
  *  property="created_at",
  *  type="",
  *  description=""
@@ -141,10 +146,10 @@ class MiaFinder extends \Illuminate\Database\Eloquent\Model
     * 
     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
     */
-    public function parent()
+    /*public function parent()
     {
         return $this->belongsTo(MiaFinder::class, 'parent_id');
-    }
+    }*/
 
 
     /**
