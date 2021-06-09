@@ -10,6 +10,7 @@
     }],
     "require": {
         "php": "^7.3",
+        "agencycoda/mia-auth-mezzio": "dev-main",
         "agencycoda/mia-core-mezzio": "dev-main",
         "agencycoda/mia-eloquent-mezzio": "dev-main",
         "staudenmeir/laravel-adjacency-list": "^1.0"
@@ -27,6 +28,10 @@
         {
             "type": "git",
             "url": "https://github.com/agencycoda/mia-eloquent-mezzio.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/agencycoda/mia-auth-mezzio.git"
         }
     ]
 }
