@@ -2,9 +2,9 @@
 
 1. Incluir libreria:
 ```bash
-composer require mobileia/mia-core-mezzio
-composer require mobileia/mia-auth-mezzio
-composer require mobileia/mia-finder-mezzio
+composer require agencycoda/mia-core-mezzio
+composer require agencycoda/mia-auth-mezzio
+composer require agencycoda/mia-finder-mezzio
 ```
 5. Agregando las rutas:
 ```php

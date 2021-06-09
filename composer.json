@@ -1,7 +1,7 @@
 {
     "name": "agencycoda/mia-finder-mezzio",
     "description": "The library for Mezzio",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "minimum-stability": "stable",
     "license": "MIT",
     "authors": [{
@@ -13,7 +13,7 @@
         "agencycoda/mia-auth-mezzio": "dev-main",
         "agencycoda/mia-core-mezzio": "dev-main",
         "agencycoda/mia-eloquent-mezzio": "dev-main",
-        "staudenmeir/laravel-adjacency-list": "^1.0"
+        "paxha/laravel-recursive-relationships": "^1.1"
     },
     "autoload": {
         "psr-4": {

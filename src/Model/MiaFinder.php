@@ -105,7 +105,7 @@ use Mia\Auth\Model\MIAUser;
  */
 class MiaFinder extends \Illuminate\Database\Eloquent\Model
 {
-    use \Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
+    use \RecursiveRelationships\Traits\HasRecursiveRelationships;
 
     const TYPE_FILE = 0;
     const TYPE_FOLDER = 1;

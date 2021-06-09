@@ -24,9 +24,9 @@ class TreeFoldersHandler extends \Mia\Core\Request\MiaRequestHandler
     public function handle(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
         // Fetch By Parent Id
-        $parentId = $this->getParam($request, 'parent_id', 0);
+        $parentId = $this->getParam($request, 'parent_id', null);
         // Fetch All folders
-        $folders = MiaFinder::with(['descendants'])->where('type', MiaFinder::TYPE_FOLDER)->where('parent_id', $parentId)->get();
+        $folders = MiaFinder::with('nestedChildren')->where('type', MiaFinder::TYPE_FOLDER)->where('parent_id', $parentId)->get();
         // Return dat
         return new \Mia\Core\Diactoros\MiaJsonResponse($folders->toArray());
     }
