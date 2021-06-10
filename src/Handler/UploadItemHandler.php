@@ -3,8 +3,11 @@
 namespace Mia\Finder\Handler;
 
 use Mia\Core\Exception\MiaException;
+use Mia\Core\Helper\GoogleTasksHelper;
 use Mia\Core\Helper\StringHelper;
 use Mia\Finder\Model\MiaFinder;
+use Mia\Finder\Model\MiaFinderLog;
+use Mia\Finder\Task\LogFinderTask;
 
 /**
  * Description of ListHandler
@@ -23,8 +26,17 @@ use Mia\Finder\Model\MiaFinder;
  */
 class UploadItemHandler extends AbstractFinderHandler
 {
+    /**
+     * 
+     *
+     * @var boolean
+     */
+    protected $isNew = false;
+
     public function handle(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
+        // Get Current User
+        $user = $this->getUser($request);
         // Obtener item a procesar
         $item = $this->getForEdit($request);
         // Guardamos data
@@ -54,6 +66,22 @@ class UploadItemHandler extends AbstractFinderHandler
             return new \Mia\Core\Diactoros\MiaJsonErrorResponse(-2, $exc->getMessage());
         }
 
+        if($this->isNew){
+            $typeLog = MiaFinderLog::TYPE_CREATED;
+        } else {
+            $typeLog = MiaFinderLog::TYPE_EDIT;
+        }
+
+        GoogleTasksHelper::executeTask(LogFinderTask::class, [
+            'finder_id' => $item->id,
+            'user_id' => $user->id,
+            'type' => $typeLog,
+            'caption' => '',
+            'data' => [
+                'user' => $user->toArray()
+            ]
+        ]);
+
         // Devolvemos respuesta
         return new \Mia\Core\Diactoros\MiaJsonResponse($item->toArray());
     }
@@ -64,6 +92,8 @@ class UploadItemHandler extends AbstractFinderHandler
      */
     protected function createNew(\Psr\Http\Message\ServerRequestInterface $request)
     {
+        // Set Is New
+        $this->isNew = true;
         // Get Current User
         $user = $this->getUser($request);
 

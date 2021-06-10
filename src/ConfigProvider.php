@@ -32,6 +32,9 @@ class ConfigProvider
     public function getDependencies() : array
     {
         return [
+            'invokables' => [
+                Task\LogFinderTask::class => Task\LogFinderTask::class,
+            ],
             'factories' => [
                 TreeFoldersHandler::class => AbstractHandlerFactory::class,
                 UploadItemHandler::class => AbstractHandlerFactory::class,

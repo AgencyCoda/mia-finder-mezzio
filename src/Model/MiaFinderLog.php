@@ -63,6 +63,9 @@ use Mia\Auth\Model\MIAUser;
  */
 class MiaFinderLog extends \Illuminate\Database\Eloquent\Model
 {
+    const TYPE_CREATED = 0;
+    const TYPE_EDIT = 1;
+
     protected $table = 'mia_finder_log';
     
     protected $casts = ['data' => 'array'];
