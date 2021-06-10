@@ -10,6 +10,9 @@ declare(strict_types=1);
 
 namespace Mia\Finder;
 
+use Mia\Finder\Factory\AbstractHandlerFactory;
+use Mia\Finder\Handler\TreeFoldersHandler;
+
 class ConfigProvider
 {
     /**
@@ -29,7 +32,7 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                //\Mia\Auth\Handler\AuthHandler::class => \Mia\Auth\Factory\AuthHandlerFactory::class,
+                TreeFoldersHandler::class => AbstractHandlerFactory::class,
                 //\Mia\Auth\Handler\AuthOptionalHandler::class => \Mia\Auth\Factory\AuthOptionalHandlerFactory::class,
                 //\Mia\Auth\Handler\LoginHandler::class => \Mia\Auth\Factory\LoginHandlerFactory::class,
                 //\Mia\Auth\Handler\Social\GoogleSignInHandler::class => \Mia\Auth\Factory\GoogleSignInHandlerFactory::class,
