@@ -19,14 +19,22 @@ use Mia\Finder\Model\MiaFinder;
  *
  * @author matiascamiletti
  */
-class TreeFoldersHandler extends \Mia\Core\Request\MiaRequestHandler
+class TreeFoldersHandler extends AbstractFinderHandler
 {
     public function handle(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
+        // Get Current User
+        $user = $this->getUser($request);
         // Fetch By Parent Id
         $parentId = $this->getParam($request, 'parent_id', null);
+        // Generate Query
+        $query = MiaFinder::with('nestedChildren')->where('type', MiaFinder::TYPE_FOLDER)->where('parent_id', $parentId);
+        // Verify If need Auth
+        if($this->service->isAuthNeed){
+            $query->where('creator_id', $user->id);
+        }
         // Fetch All folders
-        $folders = MiaFinder::with('nestedChildren')->where('type', MiaFinder::TYPE_FOLDER)->where('parent_id', $parentId)->get();
+        $folders = $query->get();
         // Return dat
         return new \Mia\Core\Diactoros\MiaJsonResponse($folders->toArray());
     }
