@@ -69,6 +69,8 @@ class MiaFinderLog extends \Illuminate\Database\Eloquent\Model
     protected $table = 'mia_finder_log';
     
     protected $casts = ['data' => 'array'];
+
+    protected $fillable = ['finder_id', 'user_id', 'type', 'caption', 'data'];
     /**
      * Indicates if the model should be timestamped.
      *
