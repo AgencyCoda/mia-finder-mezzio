@@ -41,7 +41,7 @@ class UploadItemHandler extends AbstractFinderHandler
         $item = $this->getForEdit($request);
         // Guardamos data
         $item->title = $this->getParam($request, 'title', '');
-        $item->slug = $item->creator_id . '-' . StringHelper::createSlug($item->title);
+        $item->slug = $item->creator_id . '-' . StringHelper::createSlug($item->title) . '_' . time();
 
         $item->parent_id = intval($this->getParam($request, 'parent_id', 0));
         if($item->parent_id <= 0){
