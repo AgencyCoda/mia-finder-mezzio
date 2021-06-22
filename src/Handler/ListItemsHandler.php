@@ -2,6 +2,7 @@
 
 namespace Mia\Finder\Handler;
 
+use Mia\Core\Exception\MiaException;
 use Mia\Finder\Repository\MiaFinderRepository;
 
 /**
@@ -100,6 +101,14 @@ class ListItemsHandler extends AbstractFinderHandler
         if($this->service->isAuthNeed){
             $configure->addJoin('mia_finder_permission', 'mia_finder_permission.finder_id', 'mia_finder.id');
             $configure->addWhere('mia_finder_permission.user_id', $user->id);
+        }
+        // Verify if where with tags
+        $tagWhere = $configure->getWhere('tag_id');
+        if($tagWhere != null){
+            $configure->removeWhere('tag_id');
+
+            $configure->addJoin('mia_finder_tag_rel', 'mia_finder_tag_rel.finder_id', 'mia_finder.id');
+            $configure->addWhere('mia_finder_tag_rel.tag_id', $tagWhere['value']);
         }
         // Process Query
         $rows = MiaFinderRepository::fetchByConfigure($configure);
