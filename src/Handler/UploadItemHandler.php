@@ -7,6 +7,7 @@ use Mia\Core\Helper\GoogleTasksHelper;
 use Mia\Core\Helper\StringHelper;
 use Mia\Finder\Model\MiaFinder;
 use Mia\Finder\Model\MiaFinderLog;
+use Mia\Finder\Model\MiaFinderTagRel;
 use Mia\Finder\Task\LogFinderTask;
 
 /**
@@ -62,6 +63,8 @@ class UploadItemHandler extends AbstractFinderHandler
         
         try {
             $item->save();
+            
+            $this->processTags($request, $item);
         } catch (\Exception $exc) {
             return new \Mia\Core\Diactoros\MiaJsonErrorResponse(-2, $exc->getMessage());
         }
@@ -84,6 +87,29 @@ class UploadItemHandler extends AbstractFinderHandler
 
         // Devolvemos respuesta
         return new \Mia\Core\Diactoros\MiaJsonResponse($item->toArray());
+    }
+
+    protected function processTags(\Psr\Http\Message\ServerRequestInterface $request, $finder)
+    {
+        if(!$this->isNew){
+            return;
+        }
+
+        $extra = $this->getParam($request, 'extra', null);
+        if($extra == null||!is_array($extra)){
+            return;
+        }
+
+        if(!array_key_exists('tags', $extra)){
+            return;
+        }
+
+        foreach($extra['tags'] as $tagId){
+            $rel = new MiaFinderTagRel();
+            $rel->finder_id = $finder->id;
+            $rel->tag_id = $tagId;
+            $rel->save();
+        }
     }
     /**
      * 
