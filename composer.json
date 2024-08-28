@@ -9,10 +9,10 @@
         "homepage": "https://agencycoda.com"
     }],
     "require": {
-        "php": ">=7.3",
-        "agencycoda/mia-auth-mezzio": "v2.x-dev",
-        "agencycoda/mia-core-mezzio": "v2.x-dev",
-        "agencycoda/mia-eloquent-mezzio": "v2.x-dev",
+        "php": "^8.3",
+        "agencycoda/mia-auth-mezzio": "v3.x-dev",
+        "agencycoda/mia-core-mezzio": "v3.x-dev",
+        "agencycoda/mia-eloquent-mezzio": "v3.x-dev",
         "paxha/laravel-recursive-relationships": "^1.1"
     },
     "autoload": {
@@ -33,5 +33,8 @@
             "type": "git",
             "url": "https://github.com/agencycoda/mia-auth-mezzio.git"
         }
-    ]
+    ],
+    "require-dev": {
+        "rector/rector": "^1.2"
+    }
 }
